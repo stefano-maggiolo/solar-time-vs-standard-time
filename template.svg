@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg version="1.1"
+     width="{{ WIDTH }}"
+     height="{{ HEIGHT + TOP_OFFSET }}"
+     viewBox="0 0 {{ WIDTH }} {{ HEIGHT + TOP_OFFSET }}">
+
+<style type="text/css">
+text {
+  font-family: "Futura";
+}
+
+.tz-path {
+  fill: none;
+  stroke: #995522;
+  stroke-width: 4;
+}
+
+.day-path {
+  fill: none;
+  stroke: #000000;
+  stroke-width: 8;
+}
+
+.hours-text {
+  text-anchor: middle;
+  font-size: 48;
+  fill: #995522;
+  stroke: #995522;
+}
+
+#background {
+  stroke-width: 4;
+  stroke: #000000;
+}
+
+#boundaries {
+  fill: none;
+  stroke: #227788;
+  stroke-opacity: 0.8;
+  stroke-width: 1;
+}
+
+text.country {
+  text-anchor: middle;
+}
+
+text.city-capital {
+  font-stretch: condensed;
+  font-size: 12;
+}
+
+circle.city-capital {
+  fill: #000000;
+}
+
+text.city-noncapital {
+  font-stretch: condensed;
+  font-size: 8;
+}
+
+circle.city-noncapital {
+  fill: none;
+  stroke-width: 1;
+  stroke: #000000;
+}
+
+text.tzLabel {
+  text-anchor: middle;
+  font-weight: bold;
+  font-size: 36;
+}
+
+
+text.infobox {
+  text-anchor: middle;
+  font-size: 36px;
+}
+</style>
+
+<linearGradient id="tzGrad">
+  <stop style="stop-color:{{ COLORS[0] }};" offset="0" />
+  <stop style="stop-color:{{ COLORS[1] }};" offset="0.17" />
+  <stop style="stop-color:{{ COLORS[2] }};" offset="0.33" />
+  <stop style="stop-color:{{ COLORS[3] }};" offset="0.5" />
+  <stop style="stop-color:{{ COLORS[4] }};" offset="0.66" />
+  <stop style="stop-color:{{ COLORS[5] }};" offset="0.83" />
+  <stop style="stop-color:{{ COLORS[6] }};" offset="1" />
+</linearGradient>
+
+<g id="background">
+  <rect x="0" y="0" width="{{ WIDTH }}" height="{{ HEIGHT }}" fill="#ffffff" stroke-width="0" />
+</g>
+
+<g id="lines">
+{% for line in tzLines %}
+  <path class="tz-path" d="M {{ drawLine(line) }}" />
+{% endfor %}
+{% for line in dayLines %}
+  <path class="day-path" d="M {{ drawLine(line) }}" />
+{% endfor %}
+</g>
+
+<g id="hours">
+  {% for hour in hours %}
+  <!--<path class="hours-path" d="M {{ drawLine(hour.line) }}" />-->
+  {% if hour.hour == "-12" %}
+  <text class="hours-text" x="{{ hour.center + 55 }}" y="80">
+  {% elif hour.hour == "+12"  %}
+  <text class="hours-text" x="{{ hour.center - 55 }}" y="80">
+  {% else %}
+  <text class="hours-text" x="{{ hour.center }}" y="80">
+  {% endif %}
+    {{ hour.hour }}
+  </text>
+  {% endfor %}
+</g>
+
+{% for timezone in timezones %}
+<clipPath id="clippath-{{ timezone.offset }}"
+          clipPathUnits="userSpaceOnUse">
+  <g>
+    {% for part in timezone.parts %}
+    <path d="M {{ drawLine(part) }}" />
+    {% endfor %}
+    {% for c in timezone.circles %}
+    <circle cx="{{ c[0] }}" cy="{{ c[1] }}" r="6" />
+    {% endfor %}
+  </g>
+</clipPath>
+{% if timezone.offsetPx != "uninhabited" %}
+<rect style="fill: url(#tzGrad);"
+      width="{{ WIDTH  / 24.0 * 7 }}"
+      height="{{ HEIGHT }}"
+      x="{{ timezone.offsetPx }}"
+      y="0"
+      clip-path="url(#clippath-{{ timezone.offset }})" />
+{% else %}
+<rect style="fill: #f7f7f7"
+      width="{{ WIDTH }}"
+      height="{{ HEIGHT }}"
+      x="0"
+      y="0"
+      clip-path="url(#clippath-{{ timezone.offsetPx }})" />
+{% endif %}
+{% if timezone.offset == 720 %}
+<rect style="fill: url(#tzGrad);"
+      width="{{ WIDTH  / 24.0 * 7 }}"
+      height="{{ HEIGHT }}"
+      x="{{ timezone.offsetPx - WIDTH * 24 / 24.0 }}"
+      y="0"
+      clip-path="url(#clippath-{{ timezone.offset }})" />
+{% endif %}
+{% endfor %}
+
+<g id="boundaries">
+{% for boundary in countries.boundaries %}
+  <path d="M {{ drawLine(boundary) }}" />
+{% endfor %}
+</g>
+
+<g id="cities">
+{% for city in cities %}
+  {% if city.capital %}
+  <circle class="city-capital" cx="{{ city.x }}" cy="{{ city.y }}" r="2" />
+    {% if city.inhabitants >= 2000000 %}
+  <text class="city-capital" x="{{ city.x }}" y="{{ city.y + city.dy }}" style="text-anchor: {{ city.anchor }}">
+    &#x00A0;{{ city.name }}&#x00A0;
+  </text>
+    {% endif %}
+  {% else %}
+    {% if city.inhabitants >= 5000000 %}
+  <circle class="city-noncapital" cx="{{ city.x }}" cy="{{ city.y }}" r="1.5" />
+  <text class="city-noncapital" x="{{ city.x }}" y="{{ city.y + city.dy }}" style="text-anchor: {{ city.anchor }}">
+    &#x00A0;&#x00A0;{{ city.name }}&#x00A0;&#x00A0;
+  </text>
+    {% endif %}
+  {% endif %}
+{% endfor %}
+</g>
+
+<g id="countries">
+{% for name in countries.names %}
+  {% for namePart in name.name %}
+  <text class="country" x="{{ name.x }}" y="{{ name.y + name.size * (loop.index - 1) }}" style="font-size: {{ name.size }}; letter-spacing: {{ name.spacing }};">
+    <tspan>{{ namePart }}</tspan>
+  </text>
+  {% endfor %}
+{% endfor %}
+</g>
+
+<g id="tzLabels">
+{% for label in tzLabels %}
+  {% for pos in tzLabels[label] %}
+  <text class="tzLabel" x="{{ pos[0] }}" y="{{ pos[1] }}">
+    {{ label }}
+  </text>
+  {% endfor %}
+{% endfor %}
+</g>
+
+<g id="infobox">
+  <linearGradient id="tzGradInfoBox">
+    <stop style="stop-color:{{ COLORS[1] }};" offset="0" />
+    <stop style="stop-color:{{ COLORS[2] }};" offset="0.25" />
+    <stop style="stop-color:{{ COLORS[3] }};" offset="0.5" />
+    <stop style="stop-color:{{ COLORS[4] }};" offset="0.75" />
+    <stop style="stop-color:{{ COLORS[5] }};" offset="1" />
+  </linearGradient>
+
+  <rect x="{{ WIDTH / 22 }}"
+        y="{{ 16 * HEIGHT / 22 - 120 }}"
+        width="{{ WIDTH / 24 * 4 + 100 }}"
+        height="{{ 8 * HEIGHT / 10 / 10 }}"
+        fill="#ffffff"
+        stroke="#000000" />
+
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 2 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 2 * HEIGHT / 10 / 10 }}"
+        class="infobox"
+        style="font-size: 60px; font-weight: bold;">
+    Miller Cylindrical Projection
+  </text>
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 2 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 3.5 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    Difference between solar time and standard time (h)
+  </text>
+
+  <rect style="fill: url(#tzGradInfoBox);"
+        width="{{ WIDTH  / 24 * 4 }}"
+        height="{{ HEIGHT / 10 / 10 }}"
+        x="{{ WIDTH / 22 + 50 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 5 * HEIGHT / 10 / 10 }}"
+        stroke="#000000" />
+
+  <text x="{{ WIDTH / 22 + 50}}"
+        y="{{16 * HEIGHT / 22 - 120 + 7 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    -2
+  </text>
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 1 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 7 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    -1
+  </text>
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 2 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 7 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    0
+  </text>
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 3 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 7 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    1
+  </text>
+  <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 4 }}"
+        y="{{16 * HEIGHT / 22 - 120 + 7 * HEIGHT / 10 / 10 }}"
+        class="infobox">
+    2
+  </text>
+</g>
+
+</svg>

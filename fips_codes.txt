@@ -1,0 +1,271 @@
+AA Aruba
+AC Antigua and Barbuda
+AE United Arab Emirates
+AF Afghanistan
+AG Algeria
+AJ Azerbaijan
+AL Albania
+AM Armenia
+AN Andorra
+AO Angola
+AQ American Samoa
+AR Argentina
+AS Australia
+AT Ashmore and Cartier Islands
+AU Austria
+AV Anguilla
+AX Akrotiri
+AY Antarctica
+BA Bahrain
+BB Barbados
+BC Botswana
+BD Bermuda
+BE Belgium
+BF Bahamas
+BG Bangladesh
+BH Belize
+BK Bosnia and Herzegovina
+BL Bolivia
+BM Burma
+BN Benin
+BO Belarus
+BP Solomon Islands
+BQ Navassa Island
+BR Brazil
+BS French Southern and Antarctic Lands
+BT Bhutan
+BU Bulgaria
+BV Bouvet Island
+BX Brunei
+BY Burundi
+CA Canada
+CB Cambodia
+CD Chad
+CE Sri Lanka
+CF Congo
+CG Congo
+CH China
+CI Chile
+CJ Cayman Islands
+CK Cocos Islands
+CM Cameroon
+CN Comoros
+CO Colombia
+CQ Northern Mariana Islands
+CR Coral Sea Islands
+CS Costa Rica
+CT Central African Republic
+CU Cuba
+CV Cape Verde
+CW Cook Islands
+CY Cyprus
+DA Denmark
+DJ Djibouti
+DO Dominica
+DQ Jarvis Island
+DR Dominican Republic
+DX Dhekelia
+EC Ecuador
+EG Egypt
+EI Ireland
+EK Equatorial Guinea
+EN Estonia
+ER Eritrea
+ES El Salvador
+ET Ethiopia
+EU French Southern and Antarctic Lands
+EZ Czech Republic
+FG French Guiana
+FI Finland
+FJ Fiji
+FK Falkland Islands
+FM Micronesia
+FO Faroe Islands
+FP French Polynesia
+FQ Baker Island
+FR France
+FS French Southern and Antarctic Lands
+GA Gambia
+GB Gabon
+GG Georgia
+GH Ghana
+GI Gibraltar
+GJ Grenada
+GK Guernsey
+GL Greenland
+GM Germany
+GO French Southern and Antarctic Lands
+GP Guadeloupe
+GQ Guam
+GR Greece
+GT Guatemala
+GV Guinea
+GY Guyana
+GZ Gaza Strip
+HA Haiti
+HK Hong Kong
+HM Heard Island and McDonald Islands
+HO Honduras
+HQ Howland Island
+HR Croatia
+HU Hungary
+IC Iceland
+ID Indonesia
+IM Isle of Man
+IN India
+IO British Indian Ocean Territory
+IP Clipperton Island
+IR Iran
+IS Israel
+IT Italy
+IV Côte d'Ivoire
+IZ Iraq
+JA Japan
+JE Jersey
+JM Jamaica
+JN Jan Mayen
+JO Jordan
+JQ Johnston Atoll
+JU French Southern and Antarctic Lands
+KE Kenya
+KG Kyrgyzstan
+KN North Korea
+KQ Kingman Reef
+KR Kiribati
+KS South Korea
+KT Christmas Island
+KU Kuwait
+KV Kosovo
+KZ Kazakhstan
+LA Laos
+LE Lebanon
+LG Latvia
+LH Lithuania
+LI Liberia
+LO Slovakia
+LQ Palmyra Atoll
+LS Liechtenstein
+LT Lesotho
+LU Luxembourg
+LY Libya
+MA Madagascar
+MB Martinique
+MC Macau
+MD Moldova
+MF Mayotte
+MG Mongolia
+MH Montserrat
+MI Malawi
+MJ Montenegro
+MK Macedonia
+ML Mali
+MN Monaco
+MO Morocco
+MP Mauritius
+MQ Midway Islands
+MR Mauritania
+MT Malta
+MU Oman
+MV Maldives
+MX Mexico
+MY Malaysia
+MZ Mozambique
+NC New Caledonia
+NE Niue
+NF Norfolk Island
+NG Niger
+NH Vanuatu
+NI Nigeria
+NL Netherlands
+NN Sint Maarten
+NO Norway
+NP Nepal
+NR Nauru
+NS Suriname
+NU Nicaragua
+NZ New Zealand
+OD South Sudan
+PA Paraguay
+PC Pitcairn Islands
+PE Peru
+PF Paracel Islands
+PG Spratly Islands
+PJ Kuril Islands
+PK Pakistan
+PL Poland
+PM Panama
+PO Portugal
+PP Papua New Guinea
+PS Palau
+PU Guinea-Bissau
+QA Qatar
+RE Réunion
+RI Serbia
+RM Marshall Islands
+RN Saint Martin
+RO Romania
+RP Philippines
+RQ Puerto Rico
+RS Russia
+RW Rwanda
+SA Saudi Arabia
+SB Saint Pierre and Miquelon
+SC Saint Kitts and Nevis
+SE Seychelles
+SF South Africa
+SG Senegal
+SH Saint Helena
+SI Slovenia
+SL Sierra Leone
+SM San Marino
+SN Singapore
+SO Somalia
+SP Spain
+ST Saint Lucia
+SU Sudan
+SV Svalbard
+SW Sweden
+SX South Georgia and the South Sandwich Islands
+SY Syria
+SZ Switzerland
+TB Saint Barthélemy
+TD Trinidad and Tobago
+TE French Southern and Antarctic Lands
+TH Thailand
+TI Tajikistan
+TK Turks and Caicos Islands
+TL Tokelau
+TN Tonga
+TO Togo
+TP São Tomé and Príncipe
+TS Tunisia
+TT East Timor
+TU Turkey
+TV Tuvalu
+TW Taiwan
+TX Turkmenistan
+TZ Tanzania
+UC Curaçao
+UG Uganda
+UK United Kingdom
+UP Ukraine
+US United States
+UV Burkina Faso
+UY Uruguay
+UZ Uzbekistan
+VC Saint Vincent and the Grenadines
+VE Venezuela
+VI British Virgin Islands
+VM Vietnam
+VQ United States Virgin Islands
+VT Vatican City
+WA Namibia
+WE West Bank
+WF Wallis and Futuna
+WI Western Sahara
+WQ Wake Island
+WS Samoa
+WZ Swaziland
+YM Yemen
+ZA Zambia
+ZI Zimbabwe

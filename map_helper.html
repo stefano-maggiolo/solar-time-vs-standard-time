@@ -1,0 +1,164 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <style>
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 220px;
+    left: 0;
+    right: 0;
+}
+#info {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0
+    height: 200px;
+    font-family: arial, sans-serif;
+    font-size: 12px;
+}
+#actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0
+    height: 20px;
+    font-family: arial, sans-serif;
+    font-size: 12px;
+}
+    </style>
+    <script>
+var map;
+var polylines = [];
+
+function getMeridian(deg, color) {
+    var coordinates = [
+        new google.maps.LatLng(90, deg),
+        new google.maps.LatLng(-90, deg)
+    ];
+    return new google.maps.Polyline({
+        path: coordinates,
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 0.7,
+        strokeWeight: 1
+    });
+}
+
+function roundLL(ll) {
+    var snapping = parseFloat($('#snapping').val(), 10)
+    var lat = Math.round(ll.lat() / snapping) * snapping;
+    var lng = Math.round(ll.lng() / snapping) * snapping;
+    return new google.maps.LatLng(lat, lng);
+}
+
+function initialize() {
+    var mapOptions = {
+        zoom: 2,
+        center: new google.maps.LatLng(0, 0),
+        mapTypeId: google.maps.MapTypeId.RoadMap
+    };
+    map = new google.maps.Map($('#map')[0], mapOptions);
+
+    for (var i = 0; i < 360; i+= 15) {
+        getMeridian(i, '#000000').setMap(map);
+    }
+
+    newPath();
+
+    google.maps.event.addListener(map, 'click', function(ev) {
+        var p = polylines.length - 1;
+        var path = polylines[p].getPath();
+        path.push(roundLL(ev.latLng));
+        polylines[p].setPath(path);
+    });
+}
+
+function newPath() {
+    polyline = new google.maps.Polyline({
+        draggable: true,
+        editable: true,
+        path: [],
+        geodesic: false,
+        strokeColor: '#0000AA',
+        strokeOpacity: 1,
+        strokeWeight: 1
+    });
+    polyline.setMap(map);
+
+    google.maps.event.addListener(polyline.getPath(), "set_at", function(idx) {
+        var path = polyline.getPath();
+        var origLl = path.getAt(idx);
+        var ll = roundLL(origLl)
+        if (ll.lat() != origLl.lat() || ll.lng() != origLl.lng()) {
+            path.setAt(idx, ll);
+        }
+    });
+
+    polylines.push(polyline);
+    getPolygonCoords();
+}
+
+function updateText() {
+    getPolygonCoords();
+}
+
+function updateMap() {
+    var paths = $('#info textarea').val();
+    paths = (paths + '\n').replace(/#.*\n/g, '\n');
+    paths = eval(paths);
+    while (polylines.length > 0) {
+        polylines[0].setMap(null);
+        polylines = polylines.splice(1);
+    }
+    for (var i = 0; i < paths.length; i++) {
+        newPath();
+        var path = [];
+        for (var j  = 0; j < paths[i].length; j++) {
+            path.push(new google.maps.LatLng(paths[i][j][1], paths[i][j][0]));
+        }
+        polylines[i].setPath(path);
+    }
+    getPolygonCoords();
+}
+
+function getPolygonCoords() {
+    var htmlStr = "[";
+    for (var p = 0; p < polylines.length; p++) {
+        var len = polylines[p].getPath().getLength();
+        var path = polylines[p].getPath();
+        htmlStr += '\n[';
+        for (var i = 0; i < len; i++) {
+            var ll = path.getAt(i);
+            var lat = ll.lat();
+            var lng = ll.lng();
+            htmlStr += '[' + lng + ', ' + lat + '], ';
+        }
+        htmlStr += '], '
+    }
+    htmlStr += '\n]';
+    $('#info textarea').val(htmlStr);
+}
+
+$(window).ready(initialize);
+    </script>
+  </head>
+  <body>
+    <div id="map">
+    </div>
+    <div id="info">
+      <textarea cols=200 rows=14></textarea>
+    </div>
+    <div id="actions">
+      <button onclick="updateMap()">Update map</button>
+      <button onclick="updateText()">Update text</button>
+      <button onclick="newPath()">New path</button>
+      <label>
+        Snapping:
+        <input id="snapping" type="text" value="0.25" />
+      </label>
+    </div>
+  </body>
+</html>
