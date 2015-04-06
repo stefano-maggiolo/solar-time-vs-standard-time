@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 mkdir fips10c
 pushd fips10c
@@ -10,6 +10,7 @@ mkdir tz_world
 pushd tz_world
 wget http://efele.net/maps/tz/world/tz_world.zip
 unzip tz_world.zip
+mv world/* ./
 popd
 
 mkdir cities

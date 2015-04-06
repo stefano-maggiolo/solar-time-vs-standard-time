@@ -2,8 +2,8 @@
 
 <svg version="1.1"
      width="{{ WIDTH }}"
-     height="{{ HEIGHT + TOP_OFFSET }}"
-     viewBox="0 0 {{ WIDTH }} {{ HEIGHT + TOP_OFFSET }}">
+     height="{{ HEIGHT }}"
+     viewBox="0 0 {{ WIDTH }} {{ HEIGHT }}">
 
 <style type="text/css">
 text {

@@ -135,8 +135,7 @@ def tzOffset(tz_name):
     elif not tz.dst(jun, is_dst=False):
         td = tz.utcoffset(jun, is_dst=False)
     else:
-        print tz_name
-        raise Exception()
+        td = tz.utcoffset(jun, is_dst=False)
     return int(td.days * 24 * 60 + td.seconds  / 60.0)
 
 
